@@ -7,6 +7,9 @@ import com.lance.example.model.Product;
 import com.lance.example.service.interfaces.DiscountService;
 
 public class CheckoutService {
+	
+	//initialize empty list that can be populated with classes implementing discount service.
+	//each discount (if any) will be used to calculate final cost of a product
 	private List<DiscountService> discounts = new ArrayList<DiscountService>();
 	
 	/**
@@ -40,6 +43,8 @@ public class CheckoutService {
 		for (int i = 0; i < products.size(); i++) {
 			Product p = products.get(i);
 			System.out.println("Processing item: " + p.getName());
+			
+			//apply each discount
 			for (int j = 0; j < discounts.size(); j++) {
 				Double discountedPrice = discounts.get(j).applyDiscount(p.getPrice());
 				p.setPrice(discountedPrice);
