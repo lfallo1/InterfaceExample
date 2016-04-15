@@ -4,42 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lance.example.model.Product;
+import com.lance.example.model.User;
 import com.lance.example.service.interfaces.DiscountService;
 
 public class CheckoutService {
 	
-	//initialize empty list that can be populated with classes implementing discount service.
-	//each discount (if any) will be used to calculate final cost of a product
-	private List<DiscountService> discounts = new ArrayList<DiscountService>();
-	
 	/**
-	 * Add a DiscountService to list
-	 * @param discount
+	 * initialize empty list that can be populated with classes implementing discount service.
+	 * each discount (if any) will be used to calculate final cost of a product
 	 */
-	public void addDiscount(DiscountService discount){
-		this.discounts.add(discount);
-	}
+	private List<DiscountService> discounts;
 	
 	/**
 	 * Add multiple DiscountServices to the list
 	 * @param discounts
 	 */
-	public void addDiscounts(List<DiscountService> discounts){
+	public void setDiscounts(List<DiscountService> discounts){
+		this.discounts = new ArrayList<DiscountService>();
 		this.discounts.addAll(discounts);
-	}
-	
-	/**
-	 * clear list
-	 */
-	public void resetDiscounts(){
-		this.discounts = new ArrayList<>();
 	}
 	
 	/**
 	 * Given a list of products, apply discounts and determine final costs
 	 * @param products
 	 */
-	public void checkout(List<Product> products){
+	public void checkout(User user){
+		
+		List<Product> products = user.getProducts();
+		setDiscounts(user.getDiscounts());
+		
 		for (int i = 0; i < products.size(); i++) {
 			Product p = products.get(i);
 			System.out.println("Processing item: " + p.getName());
