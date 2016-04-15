@@ -10,6 +10,7 @@ import com.lance.example.service.interfaces.DiscountService;
 public class CheckoutService {
 	
 	/**
+	 * (--- only an example - in reality services should be stateless and would not create a member var like this. --)
 	 * initialize empty list that can be populated with classes implementing discount service.
 	 * each discount (if any) will be used to calculate final cost of a product
 	 */
